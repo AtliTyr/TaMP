@@ -1,0 +1,10 @@
+release/functionsforclient.o
+release/inputip_form.o
+release/main.o
+release/mainwindow.o
+release/registrationorauthorization.o
+release/singletonclient.o
+release/moc_inputip_form.o
+release/moc_mainwindow.o
+release/moc_registrationorauthorization.o
+release/moc_singletonclient.o
