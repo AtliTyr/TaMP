@@ -16,13 +16,6 @@ QString SingletonClient::getLogin() const
     return login;
 }
 
-void SingletonClient::MainwindowForm()
-{
-    //auto mainform = new MainWindow();
-    //mainform->setAttribute(Qt::WA_DeleteOnClose);
-    //mainform->show();
-}
-
 void SingletonClient::sendToServer(QStringList info)
 {
     QString req = QString(info.join("&") + "\r\n");

@@ -54,8 +54,6 @@ class SingletonClient: public QObject
         SingletonClient& operator = (SingletonClient &) = delete;
         ~SingletonClient(){}
         friend class SingletonDestroyerClient;
-
-        void MainwindowForm();
     public:
         static SingletonClient* getInstance()
         {

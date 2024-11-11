@@ -32,7 +32,8 @@ public:
     void turnOnChatbox();
     void clearChatbox();
 
-    void successfulConnection();
+    void updateChatbox();
+    void RoA();
 private slots:
     void on_ConnectToChat_triggered();
 
@@ -40,11 +41,7 @@ private slots:
 
     void on_check_clicked();
 
-    void RoA();
-
     void on_LeaveChat_triggered();
-
-    void updateChatbox();
 private:
     Ui::MainWindow *ui;
 };

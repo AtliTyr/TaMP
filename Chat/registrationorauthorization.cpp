@@ -8,8 +8,6 @@ RegistrationOrAuthorization::RegistrationOrAuthorization(QWidget *parent)
     ui->setupUi(this);
 
     ui->RegBox->setVisible(false);
-
-    req = false;
 }
 
 RegistrationOrAuthorization::~RegistrationOrAuthorization()
@@ -56,21 +54,28 @@ void RegistrationOrAuthorization::on_Auth_clicked()
     // if reg - false
     // RegistrationFailed
     // enable button reg
+
+    tmp_a = true;
+
     SingletonClient::getInstance()->sendToServer(info);
     connect(SingletonClient::getInstance(),
             &SingletonClient::AuthResp,
             this,
             [=](){
-                if(SingletonClient::getInstance()->getLatestServerAnswer().at(1) == "+")
+                if(tmp_a == true)
                 {
-                    AuthorizationSuccessed();
-                    emit success();
-                    this->close();
-                }
-                else
-                {
-                    AuthorizationFailed();
-                    ui->Auth->setEnabled(true);
+                    if(SingletonClient::getInstance()->getLatestServerAnswer().at(1) == "+")
+                    {
+                        AuthorizationSuccessed();
+                        emit success();
+                        this->close();
+                    }
+                    else
+                    {
+                        AuthorizationFailed();
+                        ui->Auth->setEnabled(true);
+                    }
+                    tmp_a = false;
                 }
             });
 }
@@ -111,22 +116,26 @@ void RegistrationOrAuthorization::on_Reg_clicked()
     // if reg - false
     // RegistrationFailed
     // enable button reg
-
+    tmp_r = true;
     SingletonClient::getInstance()->sendToServer(info);
     connect(SingletonClient::getInstance(),
             &SingletonClient::RegResp,
             this,
             [=](){
-                if(SingletonClient::getInstance()->getLatestServerAnswer().at(1) == "+")
+                if(tmp_r == true)
                 {
-                    RegistrationSuccessed();
-                    emit success();
-                    this->close();
-                }
-                else
-                {
-                    RegistrationSuccessed();
-                    ui->Reg->setEnabled(true);
+                    if(SingletonClient::getInstance()->getLatestServerAnswer().at(1) == QString("+"))
+                    {
+                        RegistrationSuccessed();
+                        emit success();
+                        this->close();
+                    }
+                    else
+                    {
+                        RegistrationFailed();
+                        ui->Reg->setEnabled(true);
+                    }
+                    tmp_r = false;
                 }
             });
 }
@@ -146,7 +155,6 @@ void RegistrationOrAuthorization::RegistrationFailed()
 
 void RegistrationOrAuthorization::AuthorizationFailed()
 {
-        req = true;
         auto msg = new QMessageBox();
         msg->setAttribute(Qt::WA_DeleteOnClose);
         msg->setText("Authorization failed");
@@ -155,26 +163,18 @@ void RegistrationOrAuthorization::AuthorizationFailed()
 
 void RegistrationOrAuthorization::RegistrationSuccessed()
 {
-        req = true;
         auto msg = new QMessageBox();
         msg->setAttribute(Qt::WA_DeleteOnClose);
         msg->setText("Registration successed");
         msg->exec();
-
-        emit toNextForm();
-        this->close();
 }
 
 void RegistrationOrAuthorization::AuthorizationSuccessed()
 {
-        req = true;
         auto msg = new QMessageBox();
         msg->setAttribute(Qt::WA_DeleteOnClose);
         msg->setText("Authorization successed");
         msg->exec();
-
-        emit toNextForm();
-        this->close();
 }
 
 void RegistrationOrAuthorization::AlreadyAuthorized()

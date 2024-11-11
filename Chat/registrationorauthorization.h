@@ -43,8 +43,8 @@ signals:
 private:
     QStringList info;
     Ui::RegistrationOrAuthorization *ui;
-    bool req;
-
+    bool tmp_a;
+    bool tmp_r;
 };
 
 #endif // REGISTRATIONORAUTHORIZATION_H

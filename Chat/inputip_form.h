@@ -26,6 +26,7 @@ private slots:
 
 private:
     Ui::InputIP_form *ui;
+    bool tmp;
 signals:
     void applying();
     void connectionEstablished();

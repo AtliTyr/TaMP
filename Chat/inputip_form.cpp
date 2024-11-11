@@ -58,17 +58,26 @@ void InputIP_form::on_ApplyIPAddress_clicked()
     // enable apply button
     SingletonClient::getInstance()->tryConnection(temp);
 
+    tmp = true;
     connect(SingletonClient::getInstance(),
             &SingletonClient::connSignal,
             this,
             [=](){
-                this->displayCongratulationMessage();
+                if(tmp == true)
+                {
+                    this->displayCongratulationMessage();
+                }
+                tmp = false;
             });
     connect(SingletonClient::getInstance(),
             &SingletonClient::connErrorSignal,
             this,
             [=]() {
-                this->displayErrorMessage();
+                if(tmp == true)
+                {
+                    this->displayErrorMessage();
+                }
+                tmp = false;
             });
 }
 
