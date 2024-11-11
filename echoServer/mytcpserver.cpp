@@ -24,7 +24,7 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent){
         qDebug() << "server is started";
     }
 	
-    SingletonMyDB::getInstance();
+    //SingletonMyDB::getInstance();
 }
 
 void MyTcpServer::slotNewConnection(){

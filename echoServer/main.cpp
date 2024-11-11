@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 
     MyTcpServer myserv;
 
+    SingletonMyDB::getInstance();
 
     return a.exec();
 }
